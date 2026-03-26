@@ -160,11 +160,34 @@
             display: none;
         }
         
-        #first-loading-screen {
-            height: 100%;
-            width: 100%;
-            background: linear-gradient(0deg, rgba(248,208,148,1) 0%, rgba(252,181,118,1) 100%);
-        }
+#first-loading-screen {
+    /* Ensures it covers the entire viewport regardless of parent constraints */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 9999;
+    
+    /* Layout for centering a logo or spinner later */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    /* More vibrant, multi-stop gradient for depth */
+    background: linear-gradient(180deg, #ffc988 0%, #fcb576 50%, #f39c56 100%);
+    
+    /* Subtle breathing animation */
+    animation: pulseGradient 4s ease-in-out infinite alternate;
+    overflow: hidden;
+}
+
+/* Optional: Adds a soft "glow" movement to the background */
+@keyframes pulseGradient {
+    0% { filter: brightness(1); }
+    100% { filter: brightness(1.08); }
+}
         
         .alert {
             margin-top: 0;
@@ -190,59 +213,129 @@
 			display: none;
 		}
 		
-		.game-button {
-			display: inline-flex;
-			justify-content: stretch;
-			padding: 0;
-			box-sizing: border-box;
-			border: 2px solid #363636;
-			box-shadow: 0 4px 0 0 rgba(37,21,45,0.5);
-			border-radius: 7px;
-			font-family: 'Paytone One', sans-serif;
-			text-decoration: none;
-			min-width: 300px;
-			margin-bottom: 10px;
-		}
+.game-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 12px 24px; /* Added internal spacing */
+    box-sizing: border-box;
+    
+    /* 3D Border & Shadow */
+    border: 2px solid #363636;
+    background-color: #f0f0f0; /* Placeholder background */
+    box-shadow: 0 4px 0 0 #25152d; /* Solid shadow for depth */
+    border-radius: 12px; /* Slightly rounder for a "friendly" game feel */
+    
+    /* Typography */
+    font-family: 'Paytone One', sans-serif;
+    text-decoration: none;
+    color: #363636;
+    font-size: 1.2rem;
+    
+    /* Layout */
+    min-width: 300px;
+    margin-bottom: 14px; /* Increased to account for the shadow depth */
+    
+    /* Interactivity */
+    cursor: pointer;
+    position: relative;
+    transition: all 0.1s ease;
+    user-select: none;
+}
 
-		.game-button:hover {
-			text-decoration: none
-		}
+/* Hover Effect: Lifts the button slightly */
+.game-button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 0 0 #25152d;
+}
 
-		.game-button-inner {
-			flex-grow: 1;
-			text-align: center;
-			margin: 4px;
-			border-radius: 4px;
-			padding: 6px 10px 7px;
-			font-size: 18px;
-			line-height: 1.22
-		}
+/* Active State: The "Press" effect */
+.game-button:active {
+    transform: translateY(4px); /* Moves down by the height of the shadow */
+    box-shadow: 0 0 0 0 #25152d; /* Shadow disappears to simulate being pressed flat */
+}
+
+.game-button-inner {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    /* Spacing & Layout */
+    margin: 4px;
+    padding: 8px 12px; /* Adjusted for better click target feel */
+    border-radius: 5px;
+    
+    /* Typography */
+    font-size: 1.15rem; /* ~18.4px for better scaling */
+    line-height: 1.2;
+    text-align: center;
+    text-transform: uppercase; /* Often looks better in game menus */
+    letter-spacing: 0.5px;
+    
+    /* Visual Depth */
+    background-color: rgba(255, 255, 255, 0.1); /* Subtle tint */
+    box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.2), 
+                inset 0 -2px 0 rgba(0, 0, 0, 0.1);
+    
+    /* Smoothness */
+    transition: background-color 0.1s ease;
+}
+
+/* Hover effect for the inner glow */
+.game-button:hover .game-button-inner {
+    background-color: rgba(255, 255, 255, 0.2);
+}
 		
-		.game-button-sapphire {
-			background-image: linear-gradient(to bottom, #45a0dd, #4162c0);
-			color: white
-		}
+.game-button-sapphire {
+    /* Richer, more vibrant gradient */
+    background-image: linear-gradient(to bottom, #5bb0ff 0%, #45a0dd 45%, #4162c0 100%);
+    
+    /* Top highlight to simulate "rim lighting" */
+    border-top: 2px solid rgba(255, 255, 255, 0.4);
+    
+    /* Contrast & Typography */
+    color: #ffffff;
+    text-shadow: 0 2px 0 rgba(0, 0, 0, 0.3);
+    
+    /* Depth effect */
+    box-shadow: 0 4px 0 0 #2b458a; /* Darker navy for the 3D base */
+    
+    transition: filter 0.2s ease;
+}
 
 		.game-button-sapphire .game-button-inner {
 			background-image: linear-gradient(to bottom, #4887d5, #45addc)
 		}
 
-		.game-button-sapphire:hover {
-			background-image: linear-gradient(to bottom, #477cc9, #303c80);
-			color: white
-		}
+.game-button-sapphire:hover {
+    filter: brightness(1.1) contrast(1.1);
+    background-image: linear-gradient(to bottom, #6cb9ff 0%, #52a8e5 45%, #496dcc 100%);
+}
 
 		.game-button-sapphire:hover .game-button-inner {
 			background-image: linear-gradient(to bottom, #3659ba, #4883cf)
 		}
 
-		.game-button-sapphire:active {
-			background-image: linear-gradient(to bottom, #4160be, #45abdb)
-		}
+.game-button-sapphire:active {
+    filter: brightness(0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
 
-		.game-button-sapphire:active .game-button-inner {
-			background-image: linear-gradient(to bottom, #45b1de, #4886d4)
-		}
+.game-button-sapphire:active .game-button-inner {
+    /* Slightly darker, more saturated gradient to simulate being in shadow */
+    background-image: linear-gradient(to bottom, #3d8fc4, #3654a8);
+    
+    /* Inset shadow makes the inner part look like it's "sinking" */
+    box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.3);
+    
+    /* Shift text down 1px to mimic the physical movement of the button */
+    padding-top: 7px;
+    padding-bottom: 5px;
+    
+    /* Reduce brightness slightly */
+    filter: contrast(1.1) brightness(0.9);
+}
 
 		.game-button-emerald {
 			background-image: linear-gradient(to bottom, #68d376, #236366);
