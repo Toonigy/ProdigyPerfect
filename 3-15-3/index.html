@@ -60,19 +60,44 @@
             height: 100%;
         }
         
-        .full-nav-button {
-            border: 1px solid #596ED9;
-            border-top: none;
-            font-weight: bold;
-            color: #f89825;
-            margin-top: 0;
-            font-size: 1.3em;
-            padding: 10px 10px;
-            height: 100%;
-            width: 100%;
-            background-color: #6579DC;
-            color: white;
-        }
+.full-nav-button {
+    /* Layout & Sizing */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    box-sizing: border-box; /* Ensures padding doesn't break 100% width */
+
+    /* Typography */
+    font-size: 1.3rem;
+    font-weight: bold;
+    color: #ffffff;
+    text-align: center;
+    text-decoration: none;
+
+    /* Visuals */
+    background-color: #6579DC;
+    border: 1px solid #596ED9;
+    border-top: none;
+    cursor: pointer;
+    
+    /* Animation */
+    transition: background-color 0.2s ease, transform 0.1s ease;
+}
+
+/* Hover & Focus States */
+.full-nav-button:hover,
+.full-nav-button:focus {
+    background-color: #5568C9; /* Slightly darker shade */
+    outline: none;
+}
+
+/* Active (Click) State */
+.full-nav-button:active {
+    transform: scale(0.98); /* Subtle "pressed" effect */
+}
         
         .full-nav-button:hover {
             background: none;
